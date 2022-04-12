@@ -1,0 +1,26 @@
+#! /bin/bash
+
+echo "Hola escribe tu dominio:\n"
+read domainapp
+mkdir /var/www/$domainapp
+chmod 777 -R /var/www/$domainapp
+echo $(date -u) "[ok] Directorio creado con permisos\n\n"
+
+echo "<VirtualHost *:80>
+	ServerName $domainapp
+	ServerAlias www.$domainapp
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/$domainapp
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	</VirtualHost>" >> /etc/apache2/sites-available/$domainapp.conf
+
+a2ensite $domainapp
+
+echo $(date -u) "[ok] Archivo virtual host creado \n\n"
+
+systemctl reload apache2
+
+echo $(date -u) "[ok] Adicion de dominio en /etc/hosts \n\n"
+
+echo "127.0.1.1       $domainapp" >> /etc/hosts

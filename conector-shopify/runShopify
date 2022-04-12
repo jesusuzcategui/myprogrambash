@@ -1,0 +1,9 @@
+#! /bin/bash
+
+selection=$(zenity --list "Salir" "jesus-gradi-store" "jesus-reto-7" --column="" --text="Please select a account to connect" --title="Codideas - Conector Shopify")
+
+case "$selection" in
+"Salir") exit;;
+"jesus-gradi-store") shopify login --store jesus-gradi-store.myshopify.com;;
+"jesus-reto-7") shopify login --store jesusreto7.myshopify.com;;
+esac

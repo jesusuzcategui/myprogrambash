@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Abriendo editor en puerto 8000"
+
+google-chrome-stable --new-tab --app=http://200.113.110.171:8000

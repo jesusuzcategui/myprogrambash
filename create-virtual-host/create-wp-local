@@ -1,0 +1,40 @@
+#! /bin/bash
+
+echo "==== PUT YOUR DOMAIN ==== \n"
+read domainapp
+mkdir /var/www/$domainapp
+chmod 777 -R /var/www/$domainapp
+echo "==== DIRECTORY WAS CREATED WITH PERMISSIONS ==== \n"
+
+echo "<VirtualHost *:80>
+	ServerName $domainapp
+	ServerAlias www.$domainapp
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/$domainapp
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	</VirtualHost>" >> /etc/apache2/sites-available/$domainapp.conf
+
+a2ensite $domainapp
+
+echo "==== DOMAIN HAS ADDED TO APACHE CONFIG ==== \n"
+
+systemctl reload apache2
+
+echo "==== APACHE2 WAS REALODED ==== \n"
+echo "127.0.1.1       $domainapp" >> /etc/hosts
+echo "==== DOMAIN ADDED TO LOCAL HOST DETECCTION ==== \n"
+
+echo "==== DOWNLOAD WP FROM ZIP FILE REMOTE ===="
+cd /var/www/$domainapp
+wget https://wordpress.org/latest.tar.gz
+echo "==== EXTRACT FILE ===="
+tar -xzvf latest.tar.gz
+cd wordpress
+mv * ../
+echo "==== MOVING FILES ===="
+cd ../
+rm -f latest.tar.gz
+rm -R wordpress
+echo "==== DELETING UNNECESSARY FILES ===="
+chmod 777 -R /var/www/$domainapp
