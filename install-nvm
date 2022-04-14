@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Preparing"
+echo "Beging install curl"
+
+apt install curl
+
+echo "Download nvm"
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+echo "Update variables"
+cd
+source ~/.profile

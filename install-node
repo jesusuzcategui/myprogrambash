@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Install Node 14.16.0"
+nvm install 14.16.0
+echo "Set global version"
+nvm use 14.16.0

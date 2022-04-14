@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Init SSH Locutorios"
+
+sshpass -p 5f9d7e45a8 ssh wplocutorios@200.113.110.171
